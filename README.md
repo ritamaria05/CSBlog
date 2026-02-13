@@ -19,7 +19,7 @@ This blog contains explanations of CS theory and projects that I've learned and 
 - Generates static HTML at build time.
 - Client-side filtering by title, description, and tags without a database.
 - Dynamic categorization for "Theory" and "Projects".
-
+- Dark mode toggle.
 ## Structure
 ```bash
 src/
