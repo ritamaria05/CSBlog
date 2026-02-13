@@ -37,6 +37,23 @@ const title = Astro.props.title;
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
             rel="stylesheet"
         />
+        <script is:inline>
+            const theme = (() => {
+                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                    return localStorage.getItem('theme');
+                }
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+                return 'light';
+            })();
+        
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
         <style is:global>
             :root {
                 --font-sans: "Inter", sans-serif;
@@ -46,6 +63,15 @@ const title = Astro.props.title;
                 font-family: var(--font-sans);
                 background-color: #f8fafc;
                 color: #111827;
+            }
+            html.dark {
+                background-color: #1e293b;
+                color: #f8fafc;
+            }
+            html.dark input, html.dark textarea {
+                background-color: #1e293b;
+                color: #f8fafc;
+                border-color: #334155;
             }
             code,
             pre {
@@ -62,6 +88,55 @@ const title = Astro.props.title;
                 padding: 0.5rem;
                 border-radius: 0.25rem;
             }
+
+            .checkbox {
+                opacity: 0;
+                position: absolute;
+            }
+
+            .checkbox-label {
+                background-color: #111;
+                width: 50px;
+                height: 26px;
+                border-radius: 50px;
+                position: relative;
+                padding: 5px;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .fa-moon {
+                color: #f1c40f;
+            }
+
+            .fa-sun {
+                color: #f39c12;
+            }
+
+            .checkbox-label .ball {
+                background-color: #fff;
+                width: 22px;
+                height: 22px;
+                position: absolute;
+                left: 2px;
+                top: 2px;
+                border-radius: 50%;
+                transition: transform 0.2s linear;
+            }
+
+            .checkbox:checked + .checkbox-label .ball {
+                transform: translateX(24px);
+            }
+            .icon-sun, .icon-moon {
+                width: 14px;
+                height: 14px;
+                z-index: 1;
+            }
+            .icon-sun { color: #f39c12; margin-left: auto; margin-right: 4px;}
+            .icon-moon { color: #f1c40f; margin-left: 4px;}
+
         </style>
     </head>
 
@@ -149,6 +224,7 @@ const title = Astro.props.title;
                     </div>
 
                     <a href="/about" class="hover:text-gray-300">About</a>
+                    <a href="/contact" class="hover:text-gray-300">Contact</a>
 
                     <a
                         href="/search"
@@ -167,9 +243,18 @@ const title = Astro.props.title;
                                 stroke-linejoin="round"
                                 stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
+                            ></path>
                         </svg>
                     </a>
+
+                    <div class="relative flex items-center">
+                        <input type="checkbox" class="checkbox" id="checkbox" />
+                        <label for="checkbox" class="checkbox-label">
+                            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                            <span class="ball"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -181,5 +266,22 @@ const title = Astro.props.title;
         <footer class="bg-gray-900 text-white text-center p-4 mt-auto">
             &copy; {new Date().getFullYear()} CS Second Brain. All rights reserved.
         </footer>
+        <script is:inline>
+            const checkbox = document.getElementById("checkbox");
+
+            if (document.documentElement.classList.contains('dark')) {
+                checkbox.checked = true;
+            }
+
+            checkbox.addEventListener("change", () => {
+                if (checkbox.checked) {
+                    document.documentElement.classList.add("dark");
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        </script>
     </body>
 </html>
