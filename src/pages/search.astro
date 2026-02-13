@@ -3,7 +3,22 @@ import LayoutBase from "../layouts/LayoutBase.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 const theoryPosts = await getCollection("theory");
 const projectPosts = await getCollection("projects");
-const allPosts = [...theoryPosts.map(post => ({...post, collection: 'theory'})), ...projectPosts.map(post => ({...post, collection: 'projects'}))];
+const allPosts = [
+    ...theoryPosts.map(p => ({
+        title: p.data.title,
+        description: p.data.description,
+        tags: p.data.tags || [], // handle case where tags might be missing, then it will be an empty array
+        slug: p.slug,
+        type: 'theory'
+    })),
+    ...projectPosts.map(p => ({
+        title: p.data.title,
+        description: p.data.description,
+        tags: p.data.tags || [],
+        slug: p.slug,
+        type: 'projects'
+    }))
+];
 
 ---
 <LayoutBase title="Search">
@@ -31,53 +46,64 @@ const allPosts = [...theoryPosts.map(post => ({...post, collection: 'theory'})),
         const input = document.getElementById('search-input');
         const resultsDiv = document.getElementById('results-container');
 
-        // Function to read URL params (e.g., if you came from the Dropdown ?q=java)
-        const params = new URLSearchParams(window.location.search);
-        const initialQuery = params.get('q');
-
-        if (initialQuery) {
-            input.value = initialQuery;
-            performSearch(initialQuery);
+        function getTitle(post){
+            return post.title || post.data && post.data.title || 'No title';
         }
 
-        input.addEventListener('input', (e) => {
-            performSearch(e.target.value);
-        });
+        function createPostHtml(post){
+            const tags = post.tags || (post.data && post.data.tags) || [];
+            const tagsHtml = tags.map(tag => `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">#${tag}</span>`).join(' ');
+            const typeColor = post.type === 'projects' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
+            const typeLabel = post.type === 'projects' ? 'Project' : 'Theory';
+            const title = getTitle(post);
+            return `
+                <a href="/${post.type}/${post.slug}" class="block p-6 bg-white rounded-lg border hover:border-blue-500 hover:shadow-md transition group">
+                    <div class="flex justify-between items-start">
+                        <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">${title}</h2>
+                        <span class="text-xs font-bold uppercase px-2 py-1 rounded ${typeColor}">
+                            ${typeLabel}
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mt-2">${post.description || (post.data && post.data.description) || ''}</p>
+                    <div class="mt-3 flex gap-2">
+                        ${tagsHtml}
+                    </div>
+                </a>
+            `;
+        }
 
-        function performSearch(query) {
-            if (!query) {
-                resultsDiv.innerHTML = '<p class="text-center text-gray-500">Start typing...</p>';
+        function performSearch(query){
+            if(!query || query.trim() === ''){
+                resultsDiv.innerHTML = '<p class="text-center text-gray-500 mt-10">Start typing to find posts...</p>';
                 return;
             }
-
-            const term = query.toLowerCase();
-
-            // Filtering Logic: Search in Title, Description, and Tags
+            const term = query.toLowerCase().trim();
             const filtered = allPosts.filter(post => {
-                const inTitle = post.title.toLowerCase().includes(term);
-                const inTags = post.tags.some(tag => tag.toLowerCase().includes(term));
-                return inTitle || inTags;
+                const title = getTitle(post);
+                const titleMatch = title.toLowerCase().includes(term);
+                const tags = post.tags || (post.data && post.data.tags) || [];
+                const tagsMatch = tags.some(tag => tag.toLowerCase().includes(term));
+                return titleMatch || tagsMatch;
             });
-
-            // Render Results
-            if (filtered.length === 0) {
-                resultsDiv.innerHTML = '<p class="text-center text-gray-500">Nothing found. Try another word!</p>';
+            if(filtered.length === 0){
+                resultsDiv.innerHTML = '<p class="text-center text-gray-500 mt-10">Nothing found. Try another word!</p>';
             } else {
-                resultsDiv.innerHTML = filtered.map(post => `
-                    <a href="/${post.type}/${post.slug}" class="block p-6 bg-white rounded-lg border hover:border-blue-500 hover:shadow-md transition group">
-                        <div class="flex justify-between items-start">
-                            <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">${post.title}</h2>
-                            <span class="text-xs font-bold uppercase px-2 py-1 rounded ${post.type === 'projects' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}">
-                                ${post.type === 'projects' ? 'Project' : 'Theory'}
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mt-2">${post.description}</p>
-                        <div class="mt-3 flex gap-2">
-                            ${post.tags.map(tag => `<span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">#${tag}</span>`).join('')}
-                        </div>
-                    </a>
-                `).join('');
+                resultsDiv.innerHTML = filtered.map(post => createPostHtml(post)).join('');
+            }
+
+        }
+
+        if(input){
+            input.addEventListener('input', (e) => {
+                performSearch(e.target.value);
+            });
+            const params = new URLSearchParams(window.location.search);
+            const initialQuery = params.get('q');
+            if(initialQuery){
+                input.value = initialQuery;
+                performSearch(initialQuery);
             }
         }
+
     </script>
 </LayoutBase>
