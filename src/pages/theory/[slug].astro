@@ -1,0 +1,34 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import LayoutBase from "../../layouts/LayoutBase.astro";
+
+interface Props {
+    th: CollectionEntry<"theory">;
+}
+export async function getStaticPaths() {
+    const theory = await getCollection("theory");
+    return theory.map((th: CollectionEntry<"theory">) => ({
+        params: { slug: th.slug },
+        props: { th: th },
+    }));
+}
+
+const { th } = Astro.props as Props;
+const { Content } = await th.render();
+---
+
+<LayoutBase title={th.data.title}>
+    <header>
+        <h1>{th.data.title}</h1>
+        <p class="text-sm text-gray-500">
+            Last updated: {th.data.date.toLocaleDateString("pt-PT")}
+        </p>
+    </header>
+
+    <article class="prose mt-8">
+        <p class="lead">
+            {th.data.description}
+        </p>
+        <Content />
+    </article>
+</LayoutBase>

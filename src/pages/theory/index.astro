@@ -1,0 +1,23 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import LayoutBase from "../../layouts/LayoutBase.astro";
+const posts = await getCollection("theory");
+posts.sort((a: CollectionEntry<"theory">, b: CollectionEntry<"theory">) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<LayoutBase title="Theory">
+    <h1 class="text-3xl font-bold mb-6">Theory</h1>
+    <div class="grid gap-6">
+        {posts.map((post: CollectionEntry<"theory">) => (
+            <a
+                href={`/theory/${post.slug}`}
+                class="block p-4 border rounded-lg hover:bg-gray-100 transition"
+            >
+                <h2 class="text-xl font-semibold">{post.data.title}</h2>
+                <p class="text-gray-600">{post.data.description}</p>
+                <p class="text-sm text-gray-500">
+                    Published on {new Date(post.data.date).toLocaleDateString()}
+                </p>
+            </a>
+        ))}
+    </div>
+</LayoutBase>

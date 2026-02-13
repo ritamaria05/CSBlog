@@ -1,0 +1,65 @@
+---
+import "../styles/global.css";
+import { getCollection } from "astro:content";
+// define variables that change from page to page
+interface Props {
+    title: string;
+}
+const title = Astro.props.title;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>{Astro.props.title} | CS Blog</title>
+        <meta
+            name="description"
+            content="A blog about computer science topics, projects, and theories."
+        />
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+        <style is:global>
+            :root {
+                --font-sans: "Inter", sans-serif;
+                --font-mono: 'JetBrains Mono', monospace;
+            }
+            html {
+                font-family: var(--font-sans);
+                background-color: #f8fafc;
+                color: #111827;
+            }
+            code, pre {
+                font-family: var(--font-mono);
+            }
+        </style>
+    </head>
+
+    <body class="flex flex-col min-h-screen">
+        <nav class="sticky top-0 z-50 w-full p-4 bg-gray-900/90 backdrop-blur-md text-white border-b border-gray-800">
+            <a href="/" class="text-lg font-bold">CS Blog</a>
+            <div class="container mx-auto flex justify-between items-center">
+                <a href="/theory" class="mr-4 hover:underline">Theory</a>
+                <a href="/projects" class="hover:underline">Projects</a>
+                <a href="/about" class="hover:underline">About Me</a>
+                <a href="/contact" class="hover:underline">Contact</a>
+            </div>
+        </nav>
+
+        <main class="container mx-auto px-4 py-8">
+            <slot />
+        </main>
+
+        <footer class="bg-gray-900 text-white text-center p-4 mt-auto">
+            &copy; {new Date().getFullYear()} CS Blog. All rights reserved.
+        </footer>
+    </body>
+</html>

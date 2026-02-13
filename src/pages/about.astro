@@ -1,0 +1,32 @@
+---
+import LayoutBase from '../layouts/LayoutBase.astro';
+const skills = [
+    { name: 'Programming Languages', items: ['Python', 'Java', 'C++', 'C', 'SQL', 'HTML', 'CSS', 'JavaScript'] },
+    { name: 'Frameworks & Libraries', items: ['Flask', 'Pandas', 'Matplotlib'] },
+    { name: 'Tools & Platforms', items: ['Git', 'Photoshop', 'DaVinci Resolve'] },
+    { name: 'Soft Skills', items: ['Problem Solving', 'Critical Thinking', 'Communication', 'Teamwork', 'Team Leadership', 'Organization', 'Time Management'] }
+
+];
+---
+<LayoutBase title="About Me">
+    <h1 class="text-3xl font-bold mb-6">About Me</h1>
+    <p class="text-lg text-gray-700 mb-4">
+        Hi, I'm Rita. I'm a passionate computer science senior student, on my way to graduation and Master's, with a love for learning and sharing knowledge. I created this blog as a way to document my learning journey, share insights, and explore new ideas in the world of CS.
+    </p>
+    <p class="text-lg text-gray-700 mb-4">
+        I have experience in various programming languages and frameworks, and I'm always eager to take on new challenges and expand my skill set. Whether it's through projects, theory, or just sharing my thoughts, I'm excited to connect with others who share my passion for computer science. Nevertheless, I'm still understanding what I like the most, and I'm open to exploring different areas within the field. I hope this blog can be a valuable resource for others on their own learning journeys, and I'm looking forward to sharing my experiences and insights with you all.
+    </p>
+    <h2 class="text-2xl font-semibold mb-4">Skills</h2>
+    <div class="grid gap-6">
+        {skills.map((skill) => (
+            <div>
+                <h3 class="text-xl font-semibold">{skill.name}</h3>
+                <ul class="list-disc list-inside text-gray-600">
+                    {skill.items.map((item) => (
+                        <li>{item}</li>
+                    ))}
+                </ul>
+            </div>
+        ))}
+    </div>
+</LayoutBase>

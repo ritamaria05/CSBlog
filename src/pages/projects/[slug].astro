@@ -1,0 +1,27 @@
+---
+import {getCollection, type CollectionEntry} from 'astro:content';
+import LayoutBase from '../../layouts/LayoutBase.astro';
+
+interface Props {
+    project: CollectionEntry<'projects'>;
+}
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project: CollectionEntry<'projects'>) => ({
+    params: {slug: project.slug},
+    props: {project: project},
+  }));
+}
+
+const {project} = Astro.props as Props;
+const {Content} = await project.render();
+---
+
+<LayoutBase title={project.data.title}>
+    <h1>{project.data.title}</h1>
+    <p>Stack: {project.data.techStack.join(', ')}</p>
+    <article class="prose">
+       {project.data.description}
+    <Content />
+    </article>
+</LayoutBase>
