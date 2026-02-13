@@ -4,6 +4,7 @@ description: "Um clone do bit.ly construído com Go e Redis para suportar 10k pe
 date: 2024-01-20
 techStack: ["Go", "Redis", "Docker", "Nginx"]
 githubUrl: "https://github.com/teu-user/url-shortener"
+tags: ["hash", "url", "encode", "encription"]
 ---
 
 Para o meu projeto final de Computação na Cloud, decidi criar um encurtador de links focado em **performance**. O objetivo era aprender a lidar com cache distribuída.

@@ -1,6 +1,19 @@
 ---
 import "../styles/global.css";
 import { getCollection } from "astro:content";
+
+const allTheory = await getCollection("theory");
+const allProjects = await getCollection("projects");
+const getUniqueTags = (posts: any[]) => {
+    const tagsSet = new Set<string>();
+    posts.forEach((post) => {
+        post.data.tags.forEach((tag: string) => tagsSet.add(tag));
+    });
+    return Array.from(tagsSet);
+};
+const uniqueTheoryTags = getUniqueTags(allTheory);
+const uniqueProjectTags = getUniqueTags(allProjects);
+
 // define variables that change from page to page
 interface Props {
     title: string;
@@ -11,16 +24,13 @@ const title = Astro.props.title;
 <!doctype html>
 <html lang="en">
     <head>
-        <title>{Astro.props.title} | CS Blog</title>
+        <title>{Astro.props.title} | CS Second Brain</title>
         <meta
             name="description"
             content="A blog about computer science topics, projects, and theories."
         />
         <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -30,27 +40,124 @@ const title = Astro.props.title;
         <style is:global>
             :root {
                 --font-sans: "Inter", sans-serif;
-                --font-mono: 'JetBrains Mono', monospace;
+                --font-mono: "JetBrains Mono", monospace;
             }
             html {
                 font-family: var(--font-sans);
                 background-color: #f8fafc;
                 color: #111827;
             }
-            code, pre {
+            code,
+            pre {
                 font-family: var(--font-mono);
+            }
+            input,
+            button,
+            textarea,
+            select {
+                font-family: var(--font-sans);
+                background-color: #1f2937;
+                color: #ffffff;
+                border: 1px solid #374151;
+                padding: 0.5rem;
+                border-radius: 0.25rem;
             }
         </style>
     </head>
 
     <body class="flex flex-col min-h-screen">
-        <nav class="sticky top-0 z-50 w-full p-4 bg-gray-900/90 backdrop-blur-md text-white border-b border-gray-800">
-            <a href="/" class="text-lg font-bold">CS Blog</a>
+        <nav
+            class="sticky top-0 z-50 w-full p-4 bg-gray-900/95 backdrop-blur-md text-white border-b border-gray-800"
+        >
             <div class="container mx-auto flex justify-between items-center">
-                <a href="/theory" class="mr-4 hover:underline">Theory</a>
-                <a href="/projects" class="hover:underline">Projects</a>
-                <a href="/about" class="hover:underline">About Me</a>
-                <a href="/contact" class="hover:underline">Contact</a>
+                <a href="/" class="text-xl font-bold tracking-tight"
+                    >CS Second Brain</a
+                >
+
+                <div class="flex space-x-6 items-center">
+                    <div class="group relative py-2">
+                        <a
+                            href="/theory"
+                            class="hover:text-blue-400 py-2 inline-block"
+                            >Theory ▾</a
+                        >
+
+                        <div
+                            class="absolute left-0 mt-0 w-48 bg-white text-gray-900 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left"
+                        >
+                            <div class="p-2 grid gap-1">
+                                <p
+                                    class="px-3 py-1 text-xs font-bold text-gray-400 uppercase"
+                                >
+                                    By Topic
+                                </p>
+                                {
+                                    uniqueTheoryTags.slice(0, 8).map((tag) => (
+                                        /* Link para a pesquisa preenchida com a tag */
+                                        <a
+                                            href={`/search?q=${tag}`}
+                                            class="block px-3 py-2 rounded hover:bg-blue-50 text-sm capitalize"
+                                        >
+                                            {tag}
+                                        </a>
+                                    ))
+                                }
+                                <a
+                                    href="/theory"
+                                    class="block px-3 py-2 mt-2 text-xs text-blue-600 font-bold border-t hover:bg-gray-50"
+                                >
+                                    See all →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative py-2">
+                        <a
+                            href="/projects"
+                            class="hover:text-purple-400 py-2 inline-block"
+                            >Projects ▾</a
+                        >
+
+                        <div
+                            class="absolute left-0 mt-0 w-48 bg-white text-gray-900 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left"
+                        >
+                            <div class="p-2 grid gap-1">
+                                <p
+                                    class="px-3 py-1 text-xs font-bold text-gray-400 uppercase"
+                                >
+                                    Tech Stack
+                                </p>
+                                {
+                                    uniqueProjectTags.slice(0, 8).map((tag) => (
+                                        <a
+                                            href={`/search?q=${tag}`}
+                                            class="block px-3 py-2 rounded hover:bg-purple-50 text-sm capitalize"
+                                        >
+                                            {tag}
+                                        </a>
+                                    ))
+                                }
+                                <a
+                                    href="/projects"
+                                    class="block px-3 py-2 mt-2 text-xs text-purple-600 font-bold border-t hover:bg-gray-50"
+                                >
+                                    See all →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="/about" class="hover:text-gray-300">About</a>
+
+                    <a
+                        href="/search"
+                        class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"
+                        aria-label="Search"
+                    >
+                        🔍
+                    </a>
+                </div>
             </div>
         </nav>
 
@@ -59,7 +166,7 @@ const title = Astro.props.title;
         </main>
 
         <footer class="bg-gray-900 text-white text-center p-4 mt-auto">
-            &copy; {new Date().getFullYear()} CS Blog. All rights reserved.
+            &copy; {new Date().getFullYear()} CS Second Brain. All rights reserved.
         </footer>
     </body>
 </html>
