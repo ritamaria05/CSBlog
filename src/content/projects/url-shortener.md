@@ -1,5 +1,5 @@
 ---
-title: "Encurtador de URL de Alta Performance"
+title: "Encurtador de URL de Alta Performance (exemplo)"
 description: "Um clone do bit.ly construído com Go e Redis para suportar 10k pedidos por segundo."
 date: 2024-01-20
 techStack: ["Go", "Redis", "Docker", "Nginx"]

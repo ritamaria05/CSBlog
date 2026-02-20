@@ -1,5 +1,5 @@
 ---
-title: "O Teorema CAP Explicado"
+title: "O Teorema CAP Explicado (exemplo)"
 description: "Porque é que não podes ter Consistência, Disponibilidade e Tolerância a Falhas ao mesmo tempo em Sistemas Distribuídos."
 date: 2024-02-13
 tags: ["sistemas-distribuidos", "arquitetura", "bases-de-dados"]
