@@ -2,7 +2,7 @@
 title: "Basics Concepts of Concurrent Programming: Processes"
 description: "How does concurrent programming works and what processes are involved?"
 date: 2026-02-22
-tags: ["concurrent-programming", "processes", "concurrent", "concurrent-systems", "modelling"]
+tags: ["concurrent-programming", "processes"]
 ---
 
 # Sequential Processes
