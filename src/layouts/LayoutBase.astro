@@ -37,21 +37,43 @@ const title = Astro.props.title;
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
             rel="stylesheet"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+        ],
+        throwOnError : false
+    });"
+        ></script>
         <script is:inline>
             const theme = (() => {
-                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-                    return localStorage.getItem('theme');
+                if (
+                    typeof localStorage !== "undefined" &&
+                    localStorage.getItem("theme")
+                ) {
+                    return localStorage.getItem("theme");
                 }
-                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    return 'dark';
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    return "dark";
                 }
-                return 'light';
+                return "light";
             })();
-        
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
+
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
             } else {
-                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.remove("dark");
             }
         </script>
         <style is:global>
@@ -68,7 +90,8 @@ const title = Astro.props.title;
                 background-color: #1e293b;
                 color: #f8fafc;
             }
-            html.dark input, html.dark textarea {
+            html.dark input,
+            html.dark textarea {
                 background-color: #1e293b;
                 color: #f8fafc;
                 border-color: #334155;
@@ -129,14 +152,21 @@ const title = Astro.props.title;
             .checkbox:checked + .checkbox-label .ball {
                 transform: translateX(24px);
             }
-            .icon-sun, .icon-moon {
+            .icon-sun,
+            .icon-moon {
                 width: 14px;
                 height: 14px;
                 z-index: 1;
             }
-            .icon-sun { color: #f39c12; margin-left: auto; margin-right: 4px;}
-            .icon-moon { color: #f1c40f; margin-left: 4px;}
-
+            .icon-sun {
+                color: #f39c12;
+                margin-left: auto;
+                margin-right: 4px;
+            }
+            .icon-moon {
+                color: #f1c40f;
+                margin-left: 4px;
+            }
         </style>
     </head>
 
@@ -250,8 +280,24 @@ const title = Astro.props.title;
                     <div class="relative flex items-center">
                         <input type="checkbox" class="checkbox" id="checkbox" />
                         <label for="checkbox" class="checkbox-label">
-                            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                            <svg
+                                class="icon-moon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                ><path
+                                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                                ></path></svg
+                            >
+                            <svg
+                                class="icon-sun"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                ><circle cx="12" cy="12" r="5"></circle><path
+                                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                                ></path></svg
+                            >
                             <span class="ball"></span>
                         </label>
                     </div>
@@ -259,7 +305,7 @@ const title = Astro.props.title;
             </div>
         </nav>
 
-        <main class="container mx-auto px-4 py-8">
+        <main class="container mx-auto px-4 py-8 max-w-3xl">
             <slot />
         </main>
 
@@ -269,17 +315,17 @@ const title = Astro.props.title;
         <script is:inline>
             const checkbox = document.getElementById("checkbox");
 
-            if (document.documentElement.classList.contains('dark')) {
+            if (document.documentElement.classList.contains("dark")) {
                 checkbox.checked = true;
             }
 
             checkbox.addEventListener("change", () => {
                 if (checkbox.checked) {
                     document.documentElement.classList.add("dark");
-                    localStorage.setItem('theme', 'dark');
+                    localStorage.setItem("theme", "dark");
                 } else {
                     document.documentElement.classList.remove("dark");
-                    localStorage.setItem('theme', 'light');
+                    localStorage.setItem("theme", "light");
                 }
             });
         </script>
