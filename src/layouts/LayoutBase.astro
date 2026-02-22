@@ -85,9 +85,34 @@ const title = Astro.props.title;
                 font-family: var(--font-sans);
                 background-color: #f8fafc;
                 color: #111827;
+                transition:
+                    background-color 0.3s ease,
+                    color 0.3s ease;
             }
             html.dark {
-                background-color: #1e293b;
+                background-color: #0f172a;
+                color: #ffffff !important;
+            }
+            html.dark p,
+            html.dark li,
+            html.dark span,
+            html.dark div:not(.checkbox-label):not(.ball),
+            html.dark section,
+            html.dark article {
+                color: #ffffff !important;
+            }
+            html.dark h1,
+            html.dark h2,
+            html.dark h3,
+            html.dark h4
+            {
+                color: #ffffff !important;
+            }
+            html.dark strong,
+            html.dark b {
+                color: #3377ff;
+            }
+            html.dark .katex {
                 color: #f8fafc;
             }
             html.dark input,
