@@ -7,7 +7,7 @@ tags: ["concurrent-programming", "processes", "transition-systems"]
 
 # Transition Systems
 
-As studied in [Basic Concepts of Concurrent Programming - Processes](./concurrentprogramming-basics), a process is made of:
+As studied in __Basic Concepts of Concurrent Programming - Processes__, a process is made of:
 
 * A set of states
 * A set of transitions between states
