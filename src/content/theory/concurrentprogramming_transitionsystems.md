@@ -25,23 +25,23 @@ More formally, a Labelled Transition System (LTS) is a mathematical model that r
 
 ![Graph](graph.png)
 
-$S=\{IDLE, BURNING,READY\}$ <br>
-$Act = \{COIN, PRODUCE\}$ <br>
-$\rightarrow = \{(IDLE, COIN, CHOOSE), (CHOOSE, PRODUCE, READY)\}$
+$S=\\{IDLE, BURNING,READY\\}$ <br>
+$Act = \\{COIN, PRODUCE\\}$ <br>
+$\rightarrow = \\{(IDLE, COIN, CHOOSE), (CHOOSE, PRODUCE, READY)\\}$
 
 Instead of writing $(s, \alpha, s’) \in \rightarrow$ , we could write $s \xrightarrow{\alpha} s’$ , where s’ is the successor of s, being $\alpha \in Act$ an action.
 
-$Post(s, \alpha) = { s’ \in S \mid s \xrightarrow{\alpha} s’ }$ <br>
+$Post(s, \alpha) = \\{ s’ \in S \mid s \xrightarrow{\alpha} s’ \\}$ <br>
 $Post(s, A) = \bigcup_{\alpha \in A} Post(s, \alpha), A \subseteq Act$ <br>
 $Post(s) = Post(s, Act)$ <br>
 $Post(C, \alpha) = \bigcup_{s \in C} Post(s, \alpha), C \subseteq S$ <br>
 $Post(C, A) = \bigcup_{s \in C} \bigcup_{\alpha \in A} Post(s, \alpha), C \subseteq S, A \subseteq Act$ <br>
 
-Actions that occur on state $s$: [$Act(s) = { \alpha \in Act \mid \exists s’ : s \xrightarrow{\alpha} s’ }$]
+Actions that occur on state $s$: [$Act(s) = \\{ \alpha \in Act \mid \exists s’ : s \xrightarrow{\alpha} s’ \\}$]
 
-Observable actions on state $s$: [$Com(s) = { \alpha \in Com \mid \exists s’ : s \xrightarrow{\alpha} s’ }$]
+Observable actions on state $s$: [$Com(s) = \\{ \alpha \in Com \mid \exists s’ : s \xrightarrow{\alpha} s’ \\}$]
 
-Non-observable actions on state $s$: [$Int(s) = { \alpha \in Int \mid \exists s’ : s \xrightarrow{\alpha} s’ }$]
+Non-observable actions on state $s$: [$Int(s) = \\{ \alpha \in Int \mid \exists s’ : s \xrightarrow{\alpha} s’ \\}$]
 
 Note: $Act = Com \cup Int$ .
 
@@ -68,20 +68,20 @@ If not, it’s non-deterministic. A system is non-deterministic if it has one st
 A state $s$ is external non-deterministic if and only if $|Com(s)|>1$ . <br>
 A state $s$ is internal non-deterministic if and only if $|Post(s,Int)|>1$ or $|Post(s,a)|>1$ for some $a \in Com(s)$. <br>
 ![LTS](lts.png)<br>
-In this LTS, state 1 is external non-deterministic because $Com(1) = {c,b}$ , so its size is greater than 1. <br>
+In this LTS, state 1 is external non-deterministic because $Com(1) = \\{c,b\\}$ , so its size is greater than 1. <br>
 
 States 0 and 2 are internal non-deterministic because:
 
-* $Post(0,Int)=\{1,3\}$, where $Int = \{[a], [b]\}$ and size is > 1
+* $Post(0,Int)=\\{1,3\\}$, where $Int = \\{[a], [b]\\}$ and size is > 1
 * $Com(0)$ is empty
 * $|Post(2,Int)| = 0$
-* $Com(2)=\{b\}$
-* $Post(2,b) = \{1,2\} > 1$
+* $Com(2)=\\{b\\}$
+* $Post(2,b) = \\{1,2\\} > 1$
 Finally, state 3 is non-deterministic, but neither external nor internal, because:
-* $Com(3)=\{b\}$, which has size 1
-* $Int(3)=\{[a]\}$
-* $Post(3,[a]) = \{0\}$, which has size 1
-* $Post(3,b)=\{3\}$, which also has size 1
+* $Com(3)=\\{b\\}$, which has size 1
+* $Int(3)=\\{[a]\\}$
+* $Post(3,[a]) = \\{0\\}$, which has size 1
+* $Post(3,b)=\\{3\\}$, which also has size 1
 
 Types of Transition Systems
 
