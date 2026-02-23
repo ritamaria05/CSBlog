@@ -55,7 +55,7 @@ In this case, there exists a path of size $n$ between $s$ and $s’$.
 A path is acyclic if $s_{i}\neq s_j$  for all $i \neq j$; if not, it is cyclic.
 
 $Reach(s)$ is the set of achievable states of $s$. $Reach(TS)=Reach(s_0)$.<br>
-Let $\rightarrow * \subseteq S \times Act* \times S$ be the reflexive and transitive closure of $rightarrow$, then $s \xrightarrow{w}* s’$ if and only if $s’ \in Reach(s)$, where $w = \alpha_{1}…\alpha_n$ for some $\alpha_{i}\in Act$.
+Let $\rightarrow * \subseteq S \times Act* \times S$ be the reflexive and transitive closure of $\rightarrow$, then $s \xrightarrow{w}* s’$ if and only if $s’ \in Reach(s)$, where $w = \alpha_{1}…\alpha_n$ for some $\alpha_{i}\in Act$.
 
 ## Non-determinism
 
