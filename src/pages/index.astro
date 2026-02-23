@@ -30,13 +30,13 @@ const recentPosts = allPosts.slice(0, 5);
 		</p>
 		<div class="flex justify-center gap-4">
 			<a
-				href={`${base}/theory`}
+				href={`${base}theory`}
 				class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/20"
 			>
 				Explore Theory
 			</a>
 			<a
-				href={`${base}/projects`}
+				href={`${base}projects`}
 				class="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition shadow-lg hover:shadow-green-500/20"
 			>
 				Explore Projects
@@ -56,7 +56,7 @@ const recentPosts = allPosts.slice(0, 5);
 							| CollectionEntry< "projects" >,
 					) => (
 						<a
-							href={`${base}/${post.collection}/${post.slug}`}
+							href={`${base}${post.collection}/${post.slug}`}
 							class="group block p-6 bg-white dark:bg-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
 						>
 							<span

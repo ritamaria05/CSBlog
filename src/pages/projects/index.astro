@@ -10,7 +10,7 @@ posts.sort((a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) => b
     <div class="grid gap-6">
         {posts.map((post: CollectionEntry<"projects">) => (
             <a
-                href={`${base}/projects/${post.slug}`}
+                href={`${base}projects/${post.slug}`}
                 class="block p-4 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
             >
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{post.data.title}</h2>
