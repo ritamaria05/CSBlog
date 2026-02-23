@@ -5,11 +5,11 @@
 ![JavaScript](https://shields.io/badge/JavaScript-F7DF1E?logo=JavaScript&logoColor=000&style=flat-square)
 ![TypeScript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
 ![JSON](https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff&style=plastic)
-![Neltify](https://img.shields.io/badge/-netlify-blue?style=for-the-badge&logo=netlify&logoColor=green)
+
 <br>
 ![Snippet of the blog](screenshot.png)
 <br>
-Direct Link to the blog: https://my-cs-second-brain.netlify.app
+Direct Link to the blog: https://ritamaria05.github.io/CSBlog/
 
 ## Why did I made this and what does it contain?
 I'm a senior Computer Science student, and I realized, maybe too late, that because I love to teach, writing a blog about what I learn wouldn’t only help me but others as well. As I’m almost to enter my Master’s degree, this is not the worst idea ever, and it can help me communicate more effectively, as well as understand everything even better. 
