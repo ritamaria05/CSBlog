@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import LayoutBase from "../../layouts/LayoutBase.astro";
+const base = import.meta.env.BASE_URL;
 const posts = await getCollection("theory");
 posts.sort((a: CollectionEntry<"theory">, b: CollectionEntry<"theory">) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
@@ -9,7 +10,7 @@ posts.sort((a: CollectionEntry<"theory">, b: CollectionEntry<"theory">) => b.dat
     <div class="grid gap-6">
         {posts.map((post: CollectionEntry<"theory">) => (
             <a
-                href={`/theory/${post.slug}`}
+                href={`${base}/theory/${post.slug}`}
                 class="block p-4 border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
             >
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{post.data.title}</h2>

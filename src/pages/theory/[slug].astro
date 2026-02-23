@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import LayoutBase from "../../layouts/LayoutBase.astro";
-
+const base = import.meta.env.BASE_URL;
 interface Props {
     th: CollectionEntry<"theory">;
 }

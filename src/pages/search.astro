@@ -1,6 +1,7 @@
 ---
 import LayoutBase from "../layouts/LayoutBase.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+const base = import.meta.env.BASE_URL;
 const theoryPosts = await getCollection("theory");
 const projectPosts = await getCollection("projects");
 const allPosts = [
@@ -40,7 +41,7 @@ const allPosts = [
         </div>
     </div>
 
-    <script define:vars={{ allPosts }}>
+    <script define:vars={{ allPosts, base }}>
         // Astro passes the 'allPosts' variable from the server to here
         
         const input = document.getElementById('search-input');
@@ -57,7 +58,7 @@ const allPosts = [
             const typeLabel = post.type === 'projects' ? 'Project' : 'Theory';
             const title = getTitle(post);
             return `
-                <a href="/${post.type}/${post.slug}" class="block p-6 bg-white rounded-lg border hover:border-blue-500 hover:shadow-md transition group">
+                <a href="${base}${post.type}/${post.slug}" class="block p-6 bg-white rounded-lg border hover:border-blue-500 hover:shadow-md transition group">
                     <div class="flex justify-between items-start">
                         <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600">${title}</h2>
                         <span class="text-xs font-bold uppercase px-2 py-1 rounded ${typeColor}">

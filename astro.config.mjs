@@ -9,5 +9,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   site: 'https://ritamaria05.github.io',
-  base: '/CSBlog'
+  base: '/CSBlog',
+  trailingSlash: 'always',
 });

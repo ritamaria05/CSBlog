@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { getCollection } from "astro:content";
+const base = import.meta.env.BASE_URL;
 
 const allTheory = await getCollection("theory");
 const allProjects = await getCollection("projects");
@@ -209,14 +210,14 @@ const title = Astro.props.title;
             class="sticky top-0 z-50 w-full p-4 bg-gray-900/95 backdrop-blur-md text-white border-b border-gray-800"
         >
             <div class="container mx-auto flex justify-between items-center">
-                <a href="/" class="text-xl font-bold tracking-tight"
+                <a href={`${base}/`} class="text-xl font-bold tracking-tight"
                     >CS Second Brain</a
                 >
 
                 <div class="flex space-x-6 items-center">
                     <div class="group relative py-2">
                         <a
-                            href="/theory"
+                            href={`${base}/theory`}
                             class="hover:text-blue-400 py-2 inline-block"
                             >Theory ▾</a
                         >
@@ -242,7 +243,7 @@ const title = Astro.props.title;
                                     ))
                                 }
                                 <a
-                                    href="/theory"
+                                    href={`${base}/theory`}
                                     class="block px-3 py-2 mt-2 text-xs text-blue-600 font-bold border-t hover:bg-gray-50"
                                 >
                                     See all →
@@ -253,7 +254,7 @@ const title = Astro.props.title;
 
                     <div class="group relative py-2">
                         <a
-                            href="/projects"
+                            href={`${base}/projects`}
                             class="hover:text-purple-400 py-2 inline-block"
                             >Projects ▾</a
                         >
@@ -270,7 +271,7 @@ const title = Astro.props.title;
                                 {
                                     uniqueProjectTags.slice(0, 8).map((tag) => (
                                         <a
-                                            href={`/search?q=${tag}`}
+                                            href={`${base}/search?q=${tag}`}
                                             class="block px-3 py-2 rounded hover:bg-purple-50 text-sm capitalize"
                                         >
                                             {tag}
@@ -278,7 +279,7 @@ const title = Astro.props.title;
                                     ))
                                 }
                                 <a
-                                    href="/projects"
+                                    href={`${base}/projects`}
                                     class="block px-3 py-2 mt-2 text-xs text-purple-600 font-bold border-t hover:bg-gray-50"
                                 >
                                     See all →
@@ -287,11 +288,11 @@ const title = Astro.props.title;
                         </div>
                     </div>
 
-                    <a href="/about" class="hover:text-gray-300">About</a>
-                    <a href="/contact" class="hover:text-gray-300">Contact</a>
+                    <a href={`${base}/about`} class="hover:text-gray-300">About</a>
+                    <a href={`${base}/contact`} class="hover:text-gray-300">Contact</a>
 
                     <a
-                        href="/search"
+                        href={`${base}/search`}
                         class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"
                         aria-label="Search"
                     >
